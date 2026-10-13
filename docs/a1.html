@@ -4,15 +4,102 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 
-    <title>Example Student's HCDE 439 Physical Computing Page!</title>
+    <title>WenYan's HCDE 439 Physical Computing Page!</title>
 
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Example Student's Assignment 1!</h1>
+    <h1>WenYan's Assignment 1!</h1>
     <div class="header">
-      <img src="red-panda.jpg" />
       <p>Here is all the documentation for assignment 1!</p>
+    </div>
+    <div class="grid">
+      <div class="assignment">
+          <h2>Gif of Circuit</h2>
+          <img src="schematic.jpeg" />
+        <p>The schematic is composed of three different pins going into their own resistor and LED. The current for each LED was set to 10 mA for a total of 30mA since the arduino max current is set to 40 mA. The calculations are included within the image, with the voltage for the red (pin 13) and green (pin 12) set to 2V with a calculated resistance of 300 ohms and 3.3V for the blue (pin 12) with a calculated resistance of 170 ohms.</p>
+      </div>
+      <div class="assignment">
+          <h2>Image of Circuit</h2>
+          <img src="circuits.jpeg" />
+        <p>When building the circuit, the resistor values calculated did not match the resistors given in the kit. Instead of 300 ohms, a resistor with 330 ohms was used, and for 170 ohms, 220 ohms were used.</p>
+      </div>
+      <div class="assignment">
+          <h2>Gif of Circuit</h2>
+          <img src="light.gif"/>
+      </div>
+      <div class="assignment">
+          <h2>Answers to Questions</h2>
+          <ol>
+            <li><img src="graph.jpeg"/></li>
+            <li>You could blink 4 LEDs with the current draw of 40 mA with each LED running with 10 mA. You could run more with a lower mA through the LEDs to run more, which would lower the brightness. The main constriction is the 40 mA limit for hte arduino.</li>
+            <li>For my eyes setting it to 13 ms caused it to appear no longer like it was blinking and instead appeared oddly like a blur.</li>
+            <li>No AI was used in completing this assignment.</li>
+          </ol>
+      </div>
+        <div class="assignment">
+          <h2>Code</h2>
+          <code>
+            <pre>
+// Setup function runs to setup the pins
+void setup() {
+  // initialize digital pin 13 as an output.
+  pinMode(13, OUTPUT);
+  // initialize digital pin 12 as an output.
+  pinMode(12, OUTPUT);
+  // initialize digital pin 11 as an output.
+  pinMode(11, OUTPUT);
+}
+// Loop function that has the light show that will continue to repeat
+void loop() {
+  //Changes state of pin 13 to HIGH voltage level
+  digitalWrite(13, HIGH);
+  //Changes state of pin 12 to LOW voltage level
+  digitalWrite(12, LOW);
+  //Changes state of pin 11 to LOW voltage level
+  digitalWrite(11, LOW);
+  //Waits for 100 milliseconds
+  delay(100);
+  //Changes state of pin 13 to LOW voltage level
+  digitalWrite(13, LOW);
+  //Changes state of pin 12 to HIGH voltage level
+  digitalWrite(12, HIGH);
+  //Changes state of pin 11 to LOW voltage level
+  digitalWrite(11, LOW); 
+  //Waits for 100 milliseconds
+  delay(100);
+  //Changes state of pin 13 to LOW voltage level
+  digitalWrite(13, LOW);
+  //Changes state of pin 12 to LOW voltage level
+  digitalWrite(12, LOW);
+  //Changes state of pin 11 to HIGH voltage level
+  digitalWrite(11, HIGH); 
+  //Waits for 200 milliseconds
+  delay(200);
+  //Changes state of pin 11 to LOW voltage level
+  digitalWrite(11, LOW);
+  //Waits for 100 milliseconds
+  delay(100);
+  //Changes state of pin 13 to HIGH voltage level
+  digitalWrite(13, HIGH);
+  //Changes state of pin 12 to HIGH voltage level
+  digitalWrite(12, HIGH);
+  //Changes state of pin 11 to HIGH voltage level
+  digitalWrite(11, HIGH); 
+  //Waits for 200 milliseconds
+  delay(200);
+  //Changes state of pin 13 to LOW voltage level
+  digitalWrite(13, LOW);
+  //Changes state of pin 12 to LOW voltage level
+  digitalWrite(12, LOW);
+  //Changes state of pin 11 to LOW voltage level
+  digitalWrite(11, LOW); 
+  //Waits for 300 milliseconds
+  delay(300);
+}
+            </pre>
+          </code>
+      </div>
     </div>
   </body>
 </html>
