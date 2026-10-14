@@ -16,12 +16,12 @@
     <div class="grid">
       <div class="assignment">
           <h2>Gif of Circuit</h2>
-          <img src="schematic.jpeg" />
+          <img src="schematic.jpeg"/>
         <p>The schematic is composed of three different pins going into their own resistor and LED. The current for each LED was set to 10 mA for a total of 30mA since the arduino max current is set to 40 mA. The calculations are included within the image, with the voltage for the red (pin 13) and green (pin 12) set to 2V with a calculated resistance of 300 ohms and 3.3V for the blue (pin 12) with a calculated resistance of 170 ohms.</p>
       </div>
       <div class="assignment">
           <h2>Image of Circuit</h2>
-          <img src="circuits.jpeg" />
+          <img src="circuits.jpeg"/>
         <p>When building the circuit, the resistor values calculated did not match the resistors given in the kit so values close were chosen. Instead of 300 ohms, a resistor with 330 ohms was used, and for 170 ohms, 220 ohms were used.</p>
       </div>
       <div class="assignment">
@@ -31,8 +31,8 @@
       <div class="assignment">
           <h2>Answers to Questions</h2>
           <ol>
-            <li><img src="graph.jpeg"/></li>
-            <li>You could blink 4 LEDs with the current draw of 40 mA with each LED running with 10 mA. You could run more with a lower mA through the LEDs to run more, which would lower the brightness. The main constriction is the 40 mA limit for hte arduino.</li>
+            <li><img src="v_graph.jpeg"/></li>
+            <li>You could blink 4 LEDs with the total current draw of 40 mA with each LED running with 10 mA, which was the current set for each LED in my lightshow. You could run more with a lower mA through the LEDs to run more, which would lower the brightness. The main constriction is the 40 mA limit for the arduino.</li>
             <li>For my eyes setting it to 13 ms caused it to appear no longer like it was blinking and instead appeared oddly like a blur.</li>
             <li>No AI was used in completing this assignment.</li>
           </ol>
@@ -50,7 +50,6 @@ void setup() {
   // initialize digital pin 11 as an output.
   pinMode(11, OUTPUT);
 }
-
 // Loop function that has the light show that will continue to repeat
 void loop() {
   //Changes state of pin 13 to HIGH voltage level
