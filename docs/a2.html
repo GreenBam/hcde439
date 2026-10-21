@@ -4,15 +4,113 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 
-    <title>Example Student's HCDE 439 Physical Computing Page!</title>
+    <title>WenYan's HCDE 439 Physical Computing Page!</title>
 
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Example Student's Assignment 2!</h1>
+    <h1>WenYan's Assignment 2!</h1>
     <div class="header">
-      <img src="red-panda.jpg" />
       <p>Here is all the documentation for assignment 2!</p>
+    </div>
+      <div class="grid">
+      <div class="assignment">
+          <h2>Image of Schematic</h2>
+          <img src="schemA2.jpeg"/>
+        <p>The schematic is composed of a button with a resistor that leads into three seperate LEDs and its resistors in parallel. The current for each LED was set to 10 mA for a total of 30mA to ensure it doesn't excede 40mA for an arduino pin. The calculations are included within the image, with the voltage for the greens (V1 and V3) and red (V2) set to 2V with a calculated resistance of 300 ohms. A resistor for the button was chosen to be 10k, which should be sufficently large enough to ensure that the button has a defined state. </p>
+      </div>
+      <div class="assignment">
+          <h2>Image of Circuit</h2>
+          <img src="circuitsA2.jpeg"/>
+        <p>When building the circuit, the resistor values calculated for the LEDs not match the resistors given in the kit so values close were chosen. Instead of 300 ohms, a resistor with 330 ohms was used. The button has a resistor of 10k.</p>
+      </div>
+      <div class="assignment">
+          <h2>Gif of Circuit</h2>
+          <img src="lightsA2.gif"/>
+      </div>
+      <div class="assignment">  
+          <h2>Answers to Questions</h2>
+          <ol>
+            <li><img src="graphA2.jpeg"/></li>
+            <li>If all my LEDs were on simultaneously, the draw would be 30mA as each takes around 10mA. This is below the arduino set limit. With a 1200 mAh battery, it would last around 40 hours (1200/30 = 40). </li>
+            <li>When checking with the multimeter, the green LED read as 2.64 V, higher than the theoretical forward voltage of around 2V. </li>
+            <li>No AI was used in completing this assignment.</li>
+          </ol>
+      </div>
+        <div class="assignment">
+          <h2>Code</h2>
+          <code>
+            <pre>
+// Setting the pushbutton pin as pin number 2
+const int buttonPin = 2;
+// Setting the led pin as pin number 12
+const int ledPin = 12;
+// Setting the fading LED pin as pin number 10
+const int fadePin = 10;
+// Setting the led pin as pin number 8
+const int ledPin2 = 8;
+
+// variables set for reading the pushbutton - subject to change
+int buttonState = HIGH;
+
+//Setting up the pins and outputs - runs only once when starting up arduino 
+void setup() {
+  //initializing ledPin as an output
+  pinMode(ledPin, OUTPUT);
+  //initializing fadePin as an output
+  pinMode(fadePin, OUTPUT);
+  //initializing ledPin2 as an output
+  pinMode(ledPin2, OUTPUT);
+  //initializing the pushbutton pin as an input
+  pinMode(buttonPin, INPUT);
+}
+
+//Contains the code that will continue to run on the arduino
+void loop() {
+  //reads the state of the pushbutton
+  buttonState = digitalRead(buttonPin);
+
+  void loop() {
+  //reads the state of the pushbutton
+  buttonState = digitalRead(buttonPin);
+
+  // check if the pushbutton is pressed. If it is pressed, the buttonstate is LOW:
+  if (buttonState == LOW) {
+    // turn ledPin on
+    digitalWrite(ledPin, HIGH);
+    // turn ledPin on
+    digitalWrite(ledPin2, HIGH);
+    //fades in from min value to max in increments of 5
+    for (int fadeValue = 0; fadeValue <= 255; fadeValue += 5) {
+    // sets the value for fadePin, ranging from 0 to 250
+      analogWrite(fadePin, fadeValue);
+      //waits for 30 miliseconds to see the fading in
+      delay(30);
+    }
+    // fades pin out from max to min in increments of 5 points:
+    for (int fadeValue = 255; fadeValue >= 0; fadeValue -= 5) {
+    // sets the value for fadePin, ranging from 250 to 0
+        analogWrite(fadePin, fadeValue);
+        // waits for 30 miliseconds for the dimming to be seen
+        delay(30);
+      }
+    
+    //else, it is off / buttonstate HIGH
+  } else {
+    // turn ledPin off
+    digitalWrite(ledPin, LOW);
+     // turn ledPin2 off
+    digitalWrite(ledPin2, LOW);
+     // turn fadePin off
+    analogWrite(fadePin, 0);
+    
+  }
+  }
+}
+            </pre>
+          </code>
+      </div>
+    </div>
     </div>
   </body>
 </html>
