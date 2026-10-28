@@ -16,7 +16,7 @@
       <div class="grid">
       <div class="part">
           <h2>Image of Schematic</h2>
-          <img src="A3schem.jpeg"/>
+          <img src="schemA3.jpeg"/>
         <p>The schematic is composed of a light sensor and two LEDs. The current for each LED was set to 20 mA for a total of 40mA,. The calculations are included within the image, with the voltage for the LEDs (red) set to 2V with a calculated resistance of 150 ohms. A resistor for the light sensor was chosen to be 10k ohms due to the range of resistance of the sensor being around 1k ohms to 100k ohms and was the resistor used in-class. The voltage divider can read from around 0 to 5V. 10k was calculated through the geometric mean of the range so it is large compared to the smallest value of the variable resistor and small compared to the largest value of the variable resistor.</p>
       </div>
       <div class="part">
@@ -28,7 +28,7 @@
           <h2>Gif of Circuit</h2>
           <img src="A3.gif"/>
       </div>
-      <div class="part">  
+      <div class="assignment">  
           <h2>Answers to Questions</h2>
           <ol>
             <li>It does matter what the R the variable resistor is. We want R1 to be large compared to the smallest value of R2 and small compared to largest value of R2 so the when R2 is significantly large than R1 Vout is around Vin and when R1 is significantly larger than R2 Vout is around 0 . When changing the values for R1 and R2, the denominator stays the same but the numerator changes. In the example calculations (see below), the values are not the same when flipping values and are not equivalent and changes what the divider reads.<img src="A3ExCal.jpeg"/> </li>
@@ -39,7 +39,7 @@
       </div>
         <div class="assignment">
           <h2>Code</h2>
-          <p>Explanation for values chosen: the values for mapping were obtained via calibration to ensure since the range of 0 to 1023 values for the sensor may be hard to achieve in the physical world since the room that it is placed in will have variable lighting and make it harder to dim to 0. </p>
+          <p>Explanation for values chosen for the max and min of the sensor values in map: the values for mapping were obtained via calibration to ensure since the range of 0 to 1023 values for the sensor may be hard to achieve in the physical world since the room that it is placed in will have variable lighting and make it harder to dim to 0. </p>
           <br/>
           <code>
             <pre>
@@ -50,14 +50,14 @@ const int led1 = 9;
 // Analog output pin that the second LED is connected to
 const int led2 = 6;
 
-// value read from the light sensor
+// input value that is read from the light sensor
 int sensorValue = 0;
 // value output to the PWM (analog out) (that will be mapped from the input)
 int outputValue = 0; 
 
-// variable to set the minimum value for sensor
+// variable to set the minimum value for sensor (will become lower)
 int sensorMin = 1023;
-// variable to set the maximum value for sensor 
+// variable to set the maximum value for sensor (will become higher)
 int sensorMax = 0;     
 
 //code set to run once when arduino is set up
@@ -99,7 +99,7 @@ void setup() {
 
 //Contains the code that will continue to run on the arduino 
 void loop() {
-  //reading in analog value from sensor
+  //reading in analog value from the light sensor (photoresistor)
   sensorValue = analogRead(analogInPin);
   
   //constraining the range of sensor values between the sensormin and sensor max
@@ -107,9 +107,9 @@ void loop() {
   //maps the value of the sensor to be between 0-255 (analog) from the range of sensor max and min
   int outVal = map(sensVal, sensorMin, sensorMax, 0, 255);
 
-  // change the analog out value of led1
+  // change the value of led1
   analogWrite(led1, outVal);
-  // change the analog out value of led2
+  // change the value of led2
   analogWrite(led2, outVal);
 
   // print the value of sensor input value
