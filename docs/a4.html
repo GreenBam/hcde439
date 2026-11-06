@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>WenYan's HCDE 439 Physical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>WenYan's Assignment 4!</h1>
+    <div class="header">
+      <p>Here is all the documentation for assignment 4!</p>
+    </div>
+      <div class="grid">
+      <div class="part">
+          <h2>Image of Schematic</h2>
+          <img src="A4schem.jpeg"/>
+        <p>The schematic is composed of a capacitor with a resistor and a servo motor. The capacitor has a resistor of 1M so the current was low enough to detect a direct touch only. This was also the resistor intially used in class to detect touch.</p>
+      </div>
+      <div class="part">
+          <h2>Image of Circuit</h2>
+          <img src="A4Circuit.jpeg"/>
+        <p>A 1M was used as the provided kit had the correct amount. A quarter was used as the capacitor.</p>
+      </div>
+      <div class="part">
+          <h2>Gif of Circuit</h2>
+          <img src="A4.gif"/>
+      </div>
+      <div class="part">  
+          <h2>Answers to Questions</h2>
+          <ol>
+            <li>These graphs represent the pulses at different moments, the pulses get slightly longer as the position gets closer to 180.<img src="A4Graphs.jpeg"/> </li>
+            <li>Needs to have remove the outliers - can be done via a median filter or a range limit but the psuedocode is for the median filter where it takes a the median from a window of readings (code taken mostly from class):
+                 <br/> <br/>int readings[WINDOW];
+                  <br/>
+                  void loop() {<br/>
+                    readings[index] = analogRead(inputPin);<br/>
+                    sorted = sort(readings);<br/>
+                    filtered_val = sorted[WINDOW/2];<br/>
+                  }
+<br/><br/>
+            <li> Needs to smooth the data/take the average. Takes in some number of readings, gets the total from inputs than averages it out (code mostly taken from the smoothing example code from arduino): <br/><br/>
+              int readings[numReadings]; <br/>
+              int readIndex = 0;   <br/>
+              int total = 0;   <br/>
+              int average = 0;<br/>
+              <br/> total = total - readings[readIndex];
+              <br/>
+              readings[readIndex] = analogRead(inputPin);
+              <br/>
+              total = total + readings[readIndex];
+              <br/>
+              readIndex = readIndex + 1;
+              <br/>
+              if (readIndex >= numReadings) {
+                <br/>
+                readIndex = 0;
+                <br/>
+              }
+              <br/>
+              average = total / numReadings;
+              <br/>
+              Serial.println(average);
+            </li>
+            <li>No AI was used in completing this assignment.</li>
+          </ol>
+      </div>
+        <div class="assignment">
+          <h2>Code</h2>
+          <p>Explanation for values chosen if: with the capacitor sensor (coin) touches were detected to be values of 100 and above so the if statement checks if the value of the sensor is >= 100. </p>
+          <br/>
+          <code>
+            <pre>
+// include the servo library
+#include < Servo.h >
+// include the capacitor sensor library
+#include < CapacitiveSensor.h >
+
+// create Servo object to control the servo
+Servo myservo;
+// variable to store the servo position, subject to change
+int pos = 0;
+// create capcitive sensor with pins 2 (to send) and 4 (to receive)
+CapacitiveSensor   cs_s2_r4 = CapacitiveSensor(2,4);
+
+// code to run once the arduino is connected
+void setup() {
+  //puts pin 9 to servo
+  myservo.attach(9);
+  // turns off autocalibration
+  cs_s2_r4.set_CS_AutocaL_Millis(0xFFFFFFFF);
+   // Begin Serial communication to print values
+  Serial.begin(9600);
+}
+
+//code to run continuously after arduino is set up
+void loop() {
+  // The start time of the reading in miliseconds
+  long start = millis(); 
+  // variable that gets the capacitive sensor value with 30 samples
+  long total1 =  cs_s2_r4.capacitiveSensor(30);
+  //Prints beginning of the sensor value statement
+  Serial.print("\t Sensor Value: ");
+  // print sensor output value
+  Serial.println(total1);
+  // if the sensor is touched (where the value is over 100)
+  if (total1 >= 100) {
+    //check if sensor is still being touched, i.e still in the moved position of 180 degrees
+    if (pos < 180){
+      // for loop for servo's position to go from 0 deg to 180 deg in 1 deg steps
+      for (pos = 0; pos <= 180; pos += 1) { 
+        // servo moves to the position (degree) in pos variable
+        myservo.write(pos);            
+        // waits 5 ms for the servo to reach the position
+        delay(5);                   
+      } 
+    }
+  //default / not being touched
+  } else {
+    //sets position variable back to 0
+    pos = 0;
+    //sets servo motor back to 0 degree position
+    myservo.write(pos);    
+    // waits 5 ms for the servo to reach the position
+    delay(5);  
+  }
+
+}
+
+            </pre>
+          </code>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>
