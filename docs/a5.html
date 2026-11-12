@@ -80,7 +80,7 @@
           <code>
             <pre>
 // include the capacitor sensor library
-#include <CapacitiveSensor.h>
+#include < CapacitiveSensor.h >
 // create capcitive sensor with pins 2 (to send) and 4 (to receive)
 CapacitiveSensor   cs_s2_r4 = CapacitiveSensor(2,4);
 
@@ -88,6 +88,10 @@ CapacitiveSensor   cs_s2_r4 = CapacitiveSensor(2,4);
 const int ledPin = 5;
 // value of sensor - will change later
 long sensorValue = 0;
+// around the lowest value read from capacitiveSensor / not touched
+int sensorMin = 30
+// around the highest value read from capacitiveSensor / when touched
+int sensorMax = 900
 
 // code that will one once once arduino is turned on
 void setup() {
@@ -110,10 +114,10 @@ void loop() {
   // print sensor output value
   Serial.println(sensorValue);
   
-  //constraining the range of sensor values between the 30 and 900 (which is around the range of the values from the s)
-  int sensVal = constrain(sensorValue, 30, 900);
-  //maps the value of the sensor to be between 0-255 (analog) from the range of sensor max and min
-  int outVal = map(sensVal, 10, 900, 0, 255);
+  //constraining the range of sensor values between the sensorMin and sensorMax (range of values from capacitiveSensor)
+  int sensVal = constrain(sensorValue, sensorMin, sensorMax);
+  //maps the value of the sensor to be between 0-255 (analog) from the sensorMin and sensorMax (range of values from capacitiveSensor)
+  int outVal = map(sensVal, sensorMin, sensorMax, 0, 255);
   //Prints beginning of the mapped sensor value
   Serial.print("\t Mapped Value: ");
   // print mapped sensor output value
