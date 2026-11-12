@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>WenYan's HCDE 439 Physical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>WenYan's Assignment 5!</h1>
+    <div class="header">
+      <p>Here is all the documentation for assignment 5!</p>
+    </div>
+      <div class="grid">
+      <div class="part">
+          <h2>Image of Schematic</h2>
+          <img src="A5Schem.jpeg"/>
+        <p>The schematic is composed of a coin (capacitor) with a resistor and an led strip with a transitor and a 12V source. The pin that sends (2) is connected to the capacitor/coin has a resistor of 1M so the current was low enough to detect a direct touch only and not when fingers were close to it. These are also connected to pin 4, which is the receiver for the capacitor sensor. The LED strip is connected to pin 5 for PWN signals, where the voltage may be 0V or 5V, 12V source for power, and is connected to ground. The current draw of the led strip (with three white led lights) will be around 0.012 A (VR = 12 - 3*3.3 = 2.1V, IR = 2.1V/180ohms = 12 mA.)</p>
+      </div>
+      <div class="part">
+          <h2>Image of Circuit</h2>
+          <img src="A5.jpeg"/>
+        <p>A 1M was used as the provided kit had the correct amount. A quarter was used as the capacitor. </p>
+      </div>
+      <div class="part">
+          <h2>Gif of Circuit</h2>
+          <img src="A5.gif"/>
+      </div>
+      <div class="part">  
+          <h2>Answers to Questions</h2>
+          <ol>
+            <li>The max current between pin 2 and 3 is 47 A if continuous and at around room temp, 33A at around 100C, and about 160 if it is pulsed. </li>
+            <li><img src="A5Motor.jpeg"/></li><br/>
+            <li> <img src="A5Double.jpeg"/>  <br/><br/>
+              const int en1 = 7; <br/>
+              const int motor1_ccw = 6;   <br/>
+              const int motor1_cw = 5;  <br/>
+              const int en3 = 7; <br/>
+              const int motor2_ccw = 11;   <br/>
+              const int motor2_cw = 12;  <br/>
+<br/>
+            void loop() {<br/>
+                              <br/> digitalWrite(en1, HIGH);
+            <br/> digitalWrite(en3, HIGH);<br/><br/>
+            //Forward
+              <br/> digitalWrite(motor1_cw, HIGH);
+              <br/> digitalWrite(motor1_ccw, LOW);
+              <br/> digitalWrite(motor2_cw, HIGH);
+              <br/> digitalWrite(motor2_ccw, LOW);
+              <br/>
+             delay(1000)<br/>
+              <br/> // backward
+              <br/> digitalWrite(motor1_cw, LOW);
+              <br/> digitalWrite(motor1_ccw, HIGH);
+              <br/> digitalWrite(motor2_cw, LOW);
+              <br/> digitalWrite(motor2_ccw, HIGH);
+              <br/>
+              delay(1000)<br/>
+              <br/> //one (motor2) going forward, other (motor1) stays backward
+              <br/> digitalWrite(motor2_cw, HIGH);
+              <br/> digitalWrite(motor2_ccw, LOW);
+                <br/>
+              delay(1000)<br/>
+                <br/> // motor1 goes forward and then goes backward - other ones stays the same
+                <br/> digitalWrite(motor1_cw, HIGH);
+              <br/> digitalWrite(motor1_ccw, LOW);
+              <br/> delay(200)
+            <br/> digitalWrite(motor1_cw, LOW);
+              <br/> digitalWrite(motor1_ccw, HIGH);<br/>
+              }
+            </li>
+            <li>No AI was used in completing this assignment.</li>
+          </ol>
+      </div>
+        <div class="assignment">
+          <h2>Code</h2>
+          <br/>
+          <code>
+            <pre>
+// include the capacitor sensor library
+#include <CapacitiveSensor.h>
+// create capcitive sensor with pins 2 (to send) and 4 (to receive)
+CapacitiveSensor   cs_s2_r4 = CapacitiveSensor(2,4);
+
+// pin for led strip
+const int ledPin = 5;
+// value of sensor - will change later
+long sensorValue = 0;
+
+// code that will one once once arduino is turned on
+void setup() {
+  //initializing ledPin as an output, it is off and not outputting voltage
+  pinMode(ledPin, OUTPUT);
+  // turns off autocalibration
+  cs_s2_r4.set_CS_AutocaL_Millis(0xFFFFFFFF);
+  // Begin Serial communication to print values
+  Serial.begin(9600);
+}
+
+//code to run continuously after arduino is set up
+void loop() {
+  // The start time of the reading in miliseconds
+  long start = millis(); 
+  // variable that gets the capacitive sensor value with 30 samples
+  sensorValue =  cs_s2_r4.capacitiveSensor(30);
+  //Prints beginning of the sensor value statement
+  Serial.print("\t Sensor Value: ");
+  // print sensor output value
+  Serial.println(sensorValue);
+  
+  //constraining the range of sensor values between the 30 and 900 (which is around the range of the values from the s)
+  int sensVal = constrain(sensorValue, 30, 900);
+  //maps the value of the sensor to be between 0-255 (analog) from the range of sensor max and min
+  int outVal = map(sensVal, 10, 900, 0, 255);
+  //Prints beginning of the mapped sensor value
+  Serial.print("\t Mapped Value: ");
+  // print mapped sensor output value
+  Serial.println(outVal);
+ // sets the value for led strip, ranging from 0 to 255
+  analogWrite(ledPin, outVal);
+}
+            </pre>
+          </code>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>
