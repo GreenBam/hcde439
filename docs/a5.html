@@ -58,8 +58,10 @@
               <br/> digitalWrite(motor2_ccw, HIGH);
               <br/>
               delay(1000)<br/>
-              <br/> //one (motor2) going forward
+              <br/> //Change one to go forward
+              <br/> // one (motor2) going forward
               <br/> // other (motor1) stays same/backward
+              <br/> //so no need to change the voltage for it
               <br/> digitalWrite(motor2_cw, HIGH);
               <br/> digitalWrite(motor2_ccw, LOW);
                 <br/>
@@ -67,6 +69,7 @@
                 <br/>// motor1 goes forward and then 
                 <br/>// goes backward 
                 <br/>//other ones stays the same
+                <br/>// no need to change voltage
                 <br/> digitalWrite(motor1_cw, HIGH);
               <br/> digitalWrite(motor1_ccw, LOW);
               <br/> delay(200)
