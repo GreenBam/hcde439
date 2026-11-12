@@ -58,12 +58,15 @@
               <br/> digitalWrite(motor2_ccw, HIGH);
               <br/>
               delay(1000)<br/>
-              <br/> //one (motor2) going forward, other (motor1) stays backward
+              <br/> //one (motor2) going forward
+              <br/> // other (motor1) stays same/backward
               <br/> digitalWrite(motor2_cw, HIGH);
               <br/> digitalWrite(motor2_ccw, LOW);
                 <br/>
               delay(1000)<br/>
-                <br/> // motor1 goes forward and then goes backward - other ones stays the same
+                <br/>// motor1 goes forward and then 
+                <br/>// goes backward 
+                <br/>//other ones stays the same
                 <br/> digitalWrite(motor1_cw, HIGH);
               <br/> digitalWrite(motor1_ccw, LOW);
               <br/> delay(200)
